@@ -33,6 +33,10 @@ userSchema.pre("save", async function(next){
     next()
 })
 
+userSchema.methods.comparePassword = async function(password){
+    return await bcrypt.compare(password, this.password)
+}
+
 userSchema.methods.generateToken =  function(){
 return jwt.sign({
     _id:this._id,
@@ -45,4 +49,6 @@ process.env.SECRET_KEY,
 )
 }
 
-export const User = mongoose.model("User",userSchema)
+ const User = mongoose.model("User",userSchema)
+
+ module.exports = User
