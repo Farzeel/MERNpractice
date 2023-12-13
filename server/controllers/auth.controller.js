@@ -1,6 +1,6 @@
 const User = require("../models/user.model.js")
 
-const register = async (req,res)=>{
+const register = async (req,res,next)=>{
 
 try {
     const {username,phone,email,password} = req.body
@@ -24,7 +24,7 @@ try {
    return res.status(201).json({message:newUser,token: newUser.generateToken()})
 } 
 catch (error) {
-    console.log(error)
+    next(error)
 }
 }
 
